@@ -12,13 +12,14 @@
         <!-- 表单元素项2 -->
         <el-form-item>
           <!-- 表单元素 -->
-          <el-input type="password" autocomplete="off"></el-input>
+          <el-input type="password" autocomplete="off" style="width:320px"></el-input>
+          <el-button type="primary" style="float:right;margin-right:5px">提交</el-button>
         </el-form-item>
         <!-- 表单元素项3 -->
         <el-form-item>
           <!-- 表单元素 -->
-          <el-button type="primary" >提交</el-button>
-          <el-button >重置</el-button>
+          <el-checkbox v-model="checked" ></el-checkbox>
+          我已阅读并同意 <el-link type="primary" :underline="false">用户协议</el-link> 和 <el-link type="primary" :underline="false">隐私条款</el-link>
         </el-form-item>
       </el-form>
     </el-card>
@@ -26,7 +27,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      checked: true
+    }
+  }
+}
 </script>
 
 <style  scoped lang='less'>
