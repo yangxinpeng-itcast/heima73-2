@@ -8,8 +8,8 @@ import Vue from 'vue'
 import login from '@/views/login'
 
 // 在全局注册组件
+// Vue.use(VueRouter)
 Vue.use(VueRouter)
-
 // 配置路由规则
 const router = new VueRouter({
   routes: [
