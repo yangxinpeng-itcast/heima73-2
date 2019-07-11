@@ -7,16 +7,18 @@ import Vue from 'vue'
 // 导入login组件
 import login from '@/views/login'
 
+// 导入home页
+import home from '../views/home'
+
 // 在全局注册组件
 // Vue.use(VueRouter)
 Vue.use(VueRouter)
 // 配置路由规则
 const router = new VueRouter({
   routes: [
-    { path: '/login', name: 'login', component: login }
-
+    { path: '/login', name: 'login', component: login },
+    { path: '/', component: home }
   ]
 })
-
 // 导出
 export default router
