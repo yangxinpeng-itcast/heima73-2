@@ -1,32 +1,133 @@
 <template>
   <el-container class="home-container">
-    <el-aside width="200px" class="aside">Aside</el-aside>
+    <el-aside class="aside" :width="collapse?'64px':'200px'">
+      <div class="aside-top" :class="{close:collapse}">
+
+      </div>
+      <el-menu
+        style="border:none"
+        default-active="2"
+        background-color="#002033"
+        text-color="#fff"
+        active-text-color="#ffd04b"
+        :collapse="collapse"
+        :collapse-transition="false"
+      >
+        <el-menu-item index="1">
+          <i class="el-icon-menu"></i>
+          <span slot="title">首页</span>
+        </el-menu-item>
+        <el-menu-item index="2">
+          <i class="el-icon-document"></i>
+          <span slot="title">内容管理</span>
+        </el-menu-item>
+        <el-menu-item index="3">
+          <i class="el-icon-picture"></i>
+          <span slot="title">素材管理</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-menu"></i>
+          <span slot="title">发布文章</span>
+        </el-menu-item>
+        <el-menu-item index="5">
+          <i class="el-icon-menu"></i>
+          <span slot="title">评论管理</span>
+        </el-menu-item>
+        <el-menu-item index="6">
+          <i class="el-icon-menu"></i>
+          <span slot="title">粉丝管理</span>
+        </el-menu-item>
+        <el-menu-item index="7">
+          <i class="el-icon-menu"></i>
+          <span slot="title">个人设置</span>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
+
     <el-container>
-      <el-header class="el-icon-s-fold header">Header</el-header>
-      <el-main class="main">Main</el-main>
+      <el-header class="header">
+        <span class="el-icon-s-fold" @click="ddd"></span>
+        <span class="text">江苏传智播客教育科技有限公司</span>
+        <div class="right">
+          <img src="../../assets/images/avatar.jpg" />
+          <el-dropdown>
+            <span class="el-dropdown-link" style="border:none">
+              黑马小哥
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>设置</el-dropdown-item>
+              <el-dropdown-item>退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </el-header>
+      <el-main class="main"></el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      collapse: false
+    }
+  },
+  methods: {
+    ddd () {
+      this.collapse = !this.collapse
+    }
+  }
+}
 </script>
 
 <style scoped lang='less'>
-  .home-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    .header {
-      width: 100%;
-
+.home-container {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  .header {
+    line-height: 60px;
+    border-bottom: 1px solid #ccc;
+    .el-icon-s-fold {
+      font-size: 26px;
+      vertical-align: middle;
     }
-    .aside {
-      width: 200px;
-      height: 100%;
-
+    .text {
+      vertical-align: middle;
+    }
+    .right {
+      float: right;
+      line-height: 60px;
+      height: 60px;
+      img {
+        height: 40px;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
     }
   }
+  .aside {
+    background: #002033;
+    .aside-top {
+      background: #002840;
+      height: 60px;
+      width: 100%;
+      box-sizing: border-box;
+      background: url(../../assets/images/logo_admin.png) no-repeat center/140px auto;
+    }
+    .close {
+       background-image: url(../../assets/images/logo_admin_01.png);
+       background-size:36px auto;
+    }
+  }
+  .main {
+    background: url(../../assets/images/welcome.jpg) no-repeat center
+  }
+}
 </style>
