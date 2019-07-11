@@ -6,7 +6,7 @@
       </div>
       <el-menu
         style="border:none"
-        default-active="2"
+        default-active="1"
         background-color="#002033"
         text-color="#fff"
         active-text-color="#ffd04b"
@@ -62,7 +62,10 @@
           </el-dropdown>
         </div>
       </el-header>
-      <el-main class="main"></el-main>
+
+      <el-main class="main">
+
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -126,8 +129,6 @@ export default {
        background-size:36px auto;
     }
   }
-  .main {
-    background: url(../../assets/images/welcome.jpg) no-repeat center
-  }
+
 }
 </style>

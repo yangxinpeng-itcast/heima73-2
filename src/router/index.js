@@ -10,6 +10,9 @@ import login from '@/views/login'
 // 导入home页
 import home from '../views/home'
 
+// 引入main页
+import Main from '../views/main'
+
 // 在全局注册组件
 // Vue.use(VueRouter)
 Vue.use(VueRouter)
@@ -17,8 +20,14 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
     { path: '/login', name: 'login', component: login },
-    { path: '/', component: home }
+    { path: '/',
+      component: home,
+      children: [
+        { path: '/', component: Main }
+      ] }
+
   ]
 })
+
 // 导出
 export default router

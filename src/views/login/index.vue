@@ -5,14 +5,14 @@
       <!-- 表单组件 -->
       <el-form ref="loginForm" :rules="rules" :model="loginForm" status-icon>
         <!-- 表单元素项1 -->
-        <el-form-item prop="name">
+        <el-form-item prop="mobile">
           <!-- 表单元素 -->
-          <el-input type="txt" autocomplete="off" v-model="loginForm.name" style="width=100%"></el-input>
+          <el-input type="txt" autocomplete="off" v-model="loginForm.mobile" style="width=100%"></el-input>
         </el-form-item>
         <!-- 表单元素项2 -->
-        <el-form-item prop="yzm">
+        <el-form-item prop="code">
           <!-- 表单元素 -->
-          <el-input type="password" v-model="loginForm.yzm" autocomplete="off" style="width:320px"></el-input>
+          <el-input v-model="loginForm.code"  style="width:320px" placeholder="请输入验证码"></el-input>
           <el-button style="float:right;margin-right:5px">验证码</el-button>
         </el-form-item>
         <!-- 表单元素项3 -->
@@ -43,16 +43,16 @@ export default {
     }
     return {
       loginForm: {
-        name: '13911111111',
-        yzm: '246810'
+        mobile: '13911111111',
+        code: '246810'
       },
       checked: true,
       rules: {
-        name: [
+        mobile: [
           { required: true, message: '手机号必填', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }
         ],
-        yzm: [
+        code: [
           { required: true, message: '必须输入验证码', trigger: 'blur' },
           { len: 6, message: '必须是六位', trigger: 'blur' }
         ]
@@ -62,9 +62,13 @@ export default {
   methods: {
     submitForm () {
       // this.$refs[loginform]找到定义了ref=login的组件
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.$axios.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm)
+          this.$axios
+            .post(
+              'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+              this.loginForm
+            )
             .then(res => {
               // res 是响应对象  包含响应数据
               const data = res.data
@@ -73,7 +77,7 @@ export default {
               // 登录成功后：做什么事情？
               // 1. 跳转到首页
               // 2. 保存登录状态
-              // this.$router.push('/')
+              this.$router.push('/')
             })
             .catch(() => {
               // 提示错误  使用组件  消息提示组件
