@@ -66,6 +66,7 @@ export default {
         if (valid) {
           this.$axios
             .post(
+              // 这里是默认路径后面拼接的地址
               'authorizations',
               this.loginForm
             )

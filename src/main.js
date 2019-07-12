@@ -10,6 +10,7 @@ import router from '@/router'
 
 // 引入axios文件
 import axios from '@/api/axios.js'
+// import axios from 'axios'
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
