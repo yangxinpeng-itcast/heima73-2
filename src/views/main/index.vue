@@ -5,16 +5,17 @@
 </template>
 
 <script>
-export default {
-  created () {
-    this.$axios.get('/articles').then(res => {
-      console.log(res)
-    })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-}
+// 验证配置默认选项用的
+// export default {
+//   created () {
+//     this.$axios.get('/articles').then(res => {
+//       console.log(res)
+//     })
+//       .catch(err => {
+//         console.log(err)
+//       })
+//   }
+// }
 </script>
 
 <style>
