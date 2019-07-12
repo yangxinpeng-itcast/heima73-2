@@ -33,5 +33,14 @@ const router = new VueRouter({
   ]
 })
 
+// 全局守卫
+router.beforeEach((to, from, next) => {
+  const user = window.sessionStorage.getItem('heima73')
+  if (to.path !== '/login' && !user) {
+    return next('/login')
+  }
+  next()
+})
+
 // 导出
 export default router

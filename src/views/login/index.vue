@@ -78,6 +78,9 @@ export default {
               // 1. 跳转到首页
               // 2. 保存登录状态
               this.$router.push('/')
+
+              // 保存token
+              window.sessionStorage.setItem('heima73', JSON.stringify(res.data.data))
             })
             .catch(() => {
               // 提示错误  使用组件  消息提示组件
