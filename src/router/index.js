@@ -35,8 +35,8 @@ const router = new VueRouter({
 
 // 全局守卫
 router.beforeEach((to, from, next) => {
-  const user = window.sessionStorage.getItem('heima73')
-  if (to.path !== '/login' && !user) {
+  const url = window.sessionStorage.getItem('heima73')
+  if (to.path !== '/login' && !url) {
     return next('/login')
   }
   next()
