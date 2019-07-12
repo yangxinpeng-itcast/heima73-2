@@ -5,18 +5,11 @@ import App from './App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
-// 引入axios
-import axios from 'axios'
-// console.log(JSON.parse(window.sessionStorage.getItem('heima73')).token)
-
 // 引入router对象
 import router from '@/router'
 
-// 配置默认选项
-axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
-axios.defaults.headers = {
-  Authorization: 'Bearer' + JSON.parse(window.sessionStorage.getItem('heima73')).token
-}
+// 引入axios文件
+import axios from '@/api/axios.js'
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
