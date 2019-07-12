@@ -12,6 +12,7 @@ export default {
 
 <style>
     .main {
+        /* cover:铺满整屏 */
         background: url(../../assets/images/welcome.jpg) no-repeat center/500px auto;
     }
 </style>

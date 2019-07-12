@@ -23,7 +23,7 @@ const router = new VueRouter({
     { path: '/',
       component: home,
       children: [
-        { path: '/', component: Main }
+        { path: '/pp', component: Main }
       ] }
 
   ]
