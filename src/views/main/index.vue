@@ -7,7 +7,7 @@
 <script>
 export default {
   created () {
-    this.$http.get('articles').then(res => console.log(res.data))
+    this.$axios.get('articles').then(res => console.log(res.data))
   }
 }
 </script>

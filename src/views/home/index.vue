@@ -73,17 +73,6 @@
 
 <script>
 export default {
-  // // 验证响应拦截器的
-  // created () {
-  //     this.$axios.get('/articles')
-  //     .then(res=>{
-  //         console.log(res)
-  //     })
-  //     .catch(err=>{
-  //         console.log(err)
-  //     })
-  // },
-
   data () {
     return {
       collapse: false

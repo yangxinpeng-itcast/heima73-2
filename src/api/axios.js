@@ -25,7 +25,7 @@ instance.interceptors.request.use(config => {
   if (user) {
     // config为配置对象
     config.headers = {
-      Authorization: 'Bearer' + JSON.parse(window.sessionStorage.getItem('heima73')).token
+      Authorization: 'Bearer ' + JSON.parse(user).token
     }
   }
   return config
@@ -36,7 +36,7 @@ instance.interceptors.request.use(config => {
 // 响应拦截器
 instance.interceptors.response.use(response => {
   return response
-}, error => {
+}, (error) => {
   if (error.response.status === 401) {
     location.hash = '#/login'
   }

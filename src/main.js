@@ -13,12 +13,11 @@ import axios from '@/api/axios.js'
 // import axios from 'axios'
 Vue.prototype.$axios = axios
 
-Vue.config.productionTip = false
-
 // 在全局注册组件
 Vue.use(ElementUI)
-
+Vue.config.productionTip = false
 new Vue({
-  render: h => h(App),
-  router
+  router,
+  render: h => h(App)
+
 }).$mount('#app')

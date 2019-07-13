@@ -12,7 +12,7 @@
         <!-- 表单元素项2 -->
         <el-form-item prop="code">
           <!-- 表单元素 -->
-          <el-input v-model="loginForm.code"  style="width:320px" placeholder="请输入验证码"></el-input>
+          <el-input v-model="loginForm.code" style="width:320px" placeholder="请输入验证码"></el-input>
           <el-button style="float:right;margin-right:5px">验证码</el-button>
         </el-form-item>
         <!-- 表单元素项3 -->
@@ -75,13 +75,16 @@ export default {
               const data = res.data
               // 后台的返回的json内容  已经转换成了对象
               console.log(data)
+              // 保存token
+              window.sessionStorage.setItem(
+                'heima73',
+                JSON.stringify(res.data.data)
+              )
+
               // 登录成功后：做什么事情？
               // 1. 跳转到首页
               // 2. 保存登录状态
               this.$router.push('/')
-
-              // 保存token
-              window.sessionStorage.setItem('heima73', JSON.stringify(res.data.data))
             })
             .catch(() => {
               // 提示错误  使用组件  消息提示组件
