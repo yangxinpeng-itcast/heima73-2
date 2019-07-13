@@ -64,8 +64,8 @@
         </div>
       </el-header>
 
-      <el-main class="main">
-
+      <el-main>
+          <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -73,6 +73,17 @@
 
 <script>
 export default {
+  // // 验证响应拦截器的
+  // created () {
+  //     this.$axios.get('/articles')
+  //     .then(res=>{
+  //         console.log(res)
+  //     })
+  //     .catch(err=>{
+  //         console.log(err)
+  //     })
+  // },
+
   data () {
     return {
       collapse: false
@@ -126,8 +137,7 @@ export default {
       background: url(../../assets/images/logo_admin.png) no-repeat center/140px auto;
     }
     .close {
-       background-image: url(../../assets/images/logo_admin_01.png);
-       background-size:36px auto;
+       background: url(../../assets/images/logo_admin_01.png) no-repeat;
     }
   }
 

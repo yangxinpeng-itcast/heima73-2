@@ -33,12 +33,14 @@ instance.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
+// 响应拦截器
 instance.interceptors.response.use(response => {
   return response
 }, error => {
   if (error.response.status === 401) {
     location.hash = '#/login'
   }
+  console.dir(error)
   return Promise.reject(error)
 })
 

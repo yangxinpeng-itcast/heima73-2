@@ -26,7 +26,7 @@ const router = new VueRouter({
     { path: '/',
       component: home,
       children: [
-        { path: '/pp', component: Main }
+        { path: '/', component: Main }
       ] },
     { path: '*', name: '404', component: NotFound }
 

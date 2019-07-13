@@ -12,6 +12,7 @@ import router from '@/router'
 import axios from '@/api/axios.js'
 // import axios from 'axios'
 Vue.prototype.$axios = axios
+
 Vue.config.productionTip = false
 
 // 在全局注册组件
