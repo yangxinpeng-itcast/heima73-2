@@ -2,12 +2,8 @@
   <!-- 筛选容器 -->
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <span>
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>内容管理</el-breadcrumb-item>
-        </el-breadcrumb>
-      </span>
+      <!-- 默认插槽 -->
+      <my-bread>内容管理</my-bread>
     </div>
     <div>
       <el-form :model="reqParams" size="small" label-width="80px">
@@ -45,20 +41,18 @@
           <el-button type="primary">筛选</el-button>
         </el-form-item>
       </el-form>
-      <el-card>
-        <my-test>
-          <template slot="con" slot-scope="scope">内容{{scope.test}}</template>
-          <template slot="fot">底部2</template>
-        </my-test>
-      </el-card>
+
     </div>
   </el-card>
 </template>
 
 <script>
-import MyTest from '../../components/my-test'
+// 封装了插件后这里就不用再导入和挂载了
+// 引入面包屑组件
+// import MyBread from '@/components/my-bread'
 export default {
-  components: { MyTest },
+// 挂载面包屑组件
+// components:{MyBread:MyBread},
   data () {
     return {
       // 提交给后台的筛选条件

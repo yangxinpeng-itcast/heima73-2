@@ -10,8 +10,13 @@ import router from '@/router'
 
 // 引入axios文件
 import axios from '@/api/axios.js'
+
+// 引入组件插件
+import components from '@/components'
+
 // import axios from 'axios'
 Vue.prototype.$axios = axios
+Vue.use(components)
 
 // 在全局注册组件
 Vue.use(ElementUI)
