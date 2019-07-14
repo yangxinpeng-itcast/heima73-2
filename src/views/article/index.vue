@@ -32,7 +32,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="时间 :">
-        <!-- value1应该是数组，因为提交给后台的是两个时间数据 -->
+          <!-- value1应该是数组，因为提交给后台的是两个时间数据 -->
           <el-date-picker
             v-model="value1"
             type="daterange"
@@ -42,15 +42,23 @@
           ></el-date-picker>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary">筛选</el-button>
+          <el-button type="primary">筛选</el-button>
         </el-form-item>
       </el-form>
+      <el-card>
+        <my-test>
+          <template slot="con" slot-scope="scope">内容{{scope.test}}</template>
+          <template slot="fot">底部2</template>
+        </my-test>
+      </el-card>
     </div>
   </el-card>
 </template>
 
 <script>
+import MyTest from '../../components/my-test'
 export default {
+  components: { MyTest },
   data () {
     return {
       // 提交给后台的筛选条件
