@@ -4,7 +4,7 @@
       <div class="aside-top" :class="{close:collapse}"></div>
       <el-menu
         style="border:none"
-        default-active="/"
+        :default-active="$route.path"
         background-color="#002033"
         text-color="#fff"
         active-text-color="#ffd04b"

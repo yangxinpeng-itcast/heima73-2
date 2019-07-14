@@ -16,6 +16,9 @@ import Main from '../views/main'
 // 引入404页面
 import NotFound from '../views/NotFound'
 
+// 引入内容管理
+import article from '../views/article'
+
 // 在全局注册组件
 // Vue.use(VueRouter)
 Vue.use(VueRouter)
@@ -26,7 +29,8 @@ const router = new VueRouter({
     { path: '/',
       component: home,
       children: [
-        { path: '/', component: Main }
+        { path: '/', component: Main },
+        { path: '/article', component: article }
       ] },
     { path: '*', name: '404', component: NotFound }
 
