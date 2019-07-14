@@ -1,9 +1,7 @@
 <template>
   <el-container class="home-container">
     <el-aside class="aside" :width="collapse?'64px':'200px'">
-      <div class="aside-top" :class="{close:collapse}">
-
-      </div>
+      <div class="aside-top" :class="{close:collapse}"></div>
       <el-menu
         style="border:none"
         default-active="/"
@@ -50,22 +48,22 @@
         <span class="el-icon-s-fold" @click="ddd"></span>
         <span class="text">江苏传智播客教育科技有限公司</span>
         <div class="right">
-          <img src="../../assets/images/avatar.jpg" />
+          <img :src="avatar" />
           <el-dropdown>
             <span class="el-dropdown-link" style="border:none">
-              黑马小哥
+              {{name}}
               <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>设置</el-dropdown-item>
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item @click.native="set()">设置</el-dropdown-item>
+              <el-dropdown-item @click.native="logout()">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
       </el-header>
 
       <el-main>
-          <router-view></router-view>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -75,12 +73,32 @@
 export default {
   data () {
     return {
-      collapse: false
+      collapse: false,
+      name: '',
+      avatar: ''
     }
+  },
+  // 加载完毕后调用created钩子
+  created () {
+    // 页面加载完毕后自动获取用户信息
+    // 因为在登陆成功后将token转成了字符串,这里要转成对象
+    console.log(window.sessionStorage.getItem('heima73'))
+    const user = JSON.parse(window.sessionStorage.getItem('heima73'))
+    this.name = user.name
+    this.avatar = user.photo
   },
   methods: {
     ddd () {
       this.collapse = !this.collapse
+    },
+    logout () {
+      // 这种方法只能将token设置为空不能删除
+      // window.sessionStorage.setItem('heima73',null)
+      window.sessionStorage.removeItem('heima73')
+      this.$router.push('/login')
+    },
+    set () {
+      this.$router.push('/set')
     }
   }
 }
@@ -123,12 +141,12 @@ export default {
       height: 60px;
       width: 100%;
       box-sizing: border-box;
-      background: url(../../assets/images/logo_admin.png) no-repeat center/140px auto;
+      background: url(../../assets/images/logo_admin.png) no-repeat center/140px
+        auto;
     }
     .close {
-       background: url(../../assets/images/logo_admin_01.png) no-repeat;
+      background: url(../../assets/images/logo_admin_01.png) no-repeat;
     }
   }
-
 }
 </style>
