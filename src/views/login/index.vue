@@ -62,34 +62,56 @@ export default {
   methods: {
     submitForm () {
       // this.$refs[loginform]找到定义了ref=login的组件
-      this.$refs.loginForm.validate(valid => {
+      // this.$refs.loginForm.validate(valid => {
+      //   if (valid) {
+      //     this.$axios
+      //       .post(
+      //         // 这里是默认路径后面拼接的地址
+      //         'authorizations',
+      //         this.loginForm
+      //       )
+      //       .then(res => {
+      //         // res 是响应对象  包含响应数据
+      //         const data = res.data
+      //         // 后台的返回的json内容  已经转换成了对象
+      //         console.log(data)
+      //         // 保存token
+      //         window.sessionStorage.setItem(
+      //           'heima73',
+      //           JSON.stringify(res.data.data)
+      //         )
+
+      //         // 登录成功后：做什么事情？
+      //         // 1. 跳转到首页
+      //         // 2. 保存登录状态
+      //         this.$router.push('/')
+      //       })
+      //       .catch(() => {
+      //         // 提示错误  使用组件  消息提示组件
+      //         this.$message.error('用户名或密码错误')
+      //       })
+      //   }
+      // })
+
+      // 用async,await方式做
+      // 函数validate 中有一个回调函数
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          this.$axios
-            .post(
-              // 这里是默认路径后面拼接的地址
+          // valid 判断整个表单是否校验成功
+          try {
+            const res = await this.$axios.post(
               'authorizations',
               this.loginForm
             )
-            .then(res => {
-              // res 是响应对象  包含响应数据
-              const data = res.data
-              // 后台的返回的json内容  已经转换成了对象
-              console.log(data)
-              // 保存token
-              window.sessionStorage.setItem(
-                'heima73',
-                JSON.stringify(res.data.data)
-              )
-
-              // 登录成功后：做什么事情？
-              // 1. 跳转到首页
-              // 2. 保存登录状态
-              this.$router.push('/')
-            })
-            .catch(() => {
-              // 提示错误  使用组件  消息提示组件
-              this.$message.error('用户名或密码错误')
-            })
+            // console.log(res.data.data)
+            window.sessionStorage.setItem(
+              'heima73',
+              JSON.stringify(res.data.data)
+            )
+            this.$router.push('/')
+          } catch (err) {
+            this.$message.error('用户名或密码错误')
+          }
         }
       })
     }

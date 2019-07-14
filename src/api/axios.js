@@ -14,7 +14,7 @@ const instance = axios.create({
   baseURL: 'http://ttapi.research.itcast.cn/mp/v1_0/'
   // 因为如果手动删除了token后刷新页面这里会报错，所以不用这种写法
   //   headers: {
-  //     Authorization: 'Bearer' + JSON.parse(window.sessionStorage.getItem('heima73')).token
+  //     Authorization: 'Bearer ' + JSON.parse(window.sessionStorage.getItem('heima73')).token
   //   }
 
 })
