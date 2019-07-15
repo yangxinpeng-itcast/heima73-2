@@ -52,7 +52,7 @@
     <el-card>
       <div slot="header">
         根据筛选条件共查询到
-        <h3 style="display:inline-block">0</h3>条结果：
+        <h3 style="display:inline-block">{{total}}</h3>条结果：
       </div>
       <el-table :data="articles">
         <el-table-column label="封面">
@@ -90,7 +90,16 @@
         </el-table-column>
       </el-table>
       <div class="box1">
-        <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+        <el-pagination
+          background
+          layout="prev, pager, next"
+
+          @current-change="changePager"
+          :current-page="reqParams.page"
+          :page-size="reqParams.per_page"
+          :total="total"
+          >
+        </el-pagination>
       </div>
     </el-card>
   </div>
@@ -107,6 +116,8 @@ export default {
     return {
       // 提交给后台的筛选条件
       reqParams: {
+        page: 1,
+        per_page: 10,
         status: null,
         channel_id: null,
         begin_pubdate: null,
@@ -117,7 +128,9 @@ export default {
       dateValues: [],
 
       // 列表数据
-      articles: []
+      articles: [],
+      // 总条数
+      total: 0
     }
   },
   created () {
@@ -127,6 +140,13 @@ export default {
     this.getArticles()
   },
   methods: {
+    changePager (newPage) {
+      // newPage当前点击的按钮的当前页
+      // 改变当前页,更新提交给后台的参数
+      this.reqParams.page = newPage
+      // 获取当前列表数据
+      this.getArticles()
+    },
     // valaus默认和dateValues绑定的数据一致
     // 是change事件默认传入的
     changeDate (values) {
@@ -152,7 +172,8 @@ export default {
         data: { data }
       } = await this.$axios.get('/articles', { params: this.reqParams })
       this.articles = data.results
-      console.log(data.results)
+      this.total = data.total_count
+      // console.log(data)
     }
   }
 }
