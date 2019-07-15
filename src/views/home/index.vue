@@ -82,7 +82,7 @@ export default {
   created () {
     // 页面加载完毕后自动获取用户信息
     // 因为在登陆成功后将token转成了字符串,这里要转成对象
-    console.log(window.sessionStorage.getItem('heima73'))
+    // console.log(window.sessionStorage.getItem('heima73'))
     const user = JSON.parse(window.sessionStorage.getItem('heima73'))
     this.name = user.name
     this.avatar = user.photo
