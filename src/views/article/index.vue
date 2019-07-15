@@ -62,9 +62,19 @@ export default {
         begin_pubdate: null,
         end_pubdate: null
       },
-      channelOptions: [{ id: '1', name: 'java' }, { id: '2', name: '前端' }],
+      channelOptions: [],
       // 这里的数据应该从后台获取，以后获取后台时再根据reqParams里的属性修改
       value1: []
+    }
+  },
+  created () {
+    // 页面加载完毕后就执行钩子函数调用getChanelOptions函数
+    this.getChannelOptions()
+  },
+  methods: {
+    async getChannelOptions () {
+      const { data: { data } } = await this.$axios.get('channels')
+      this.channelOptions = data.channels
     }
   }
 }
