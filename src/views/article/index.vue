@@ -52,16 +52,37 @@
         <h3 style="display:inline-block">0</h3>条结果：
       </div>
       <el-table :data="articles">
-        <el-table-column label="封面" width="180"></el-table-column>
-        <el-table-column label="标题" width="180"></el-table-column>
-        <el-table-column label="状态"></el-table-column>
-        <el-table-column label="发布时间"></el-table-column>
-        <el-table-column label="操作"></el-table-column>
+        <el-table-column label="封面">
+          <!-- 这里是一个作用域插槽在后台获取的数据相当于子组件 -->
+          <!-- 本组件在这里是父组件 -->
+          <template slot-scope="scope">
+            <!-- {{scope.row.cover.images[0]}} -->
+            <el-image :src="scope.row.cover.images[0]" style="width:100px;height:70px">
+              <div slot="error" class="image-slot">
+                <img src="../../assets/images/error.gif" width="100px" height="70px" />
+              </div>
+            </el-image>
+          </template>
+        </el-table-column>
+        <el-table-column label="标题" width="180">
+          <template slot-scope="scope">{{scope.row.title}}</template>
+        </el-table-column>
+        <el-table-column label="状态">
+          <template slot-scope="scope">{{scope.row.status}}</template>
+        </el-table-column>
+        <el-table-column label="发布时间">
+          <template slot-scope="scope">{{scope.row.pubdate}}</template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <el-row>
+            <el-button type="primary" icon="el-icon-edit" circle></el-button>
+            <el-button type="danger" icon="el-icon-delete" circle></el-button>
+          </el-row>
+        </el-table-column>
       </el-table>
       <div class="box1">
-           <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+        <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
       </div>
-
     </el-card>
   </div>
 </template>
@@ -107,7 +128,9 @@ export default {
     async getArticles () {
       // 这里用?拼接数据适合传一个参数时，而多个参数要用对象的
       // 方式传参{params:{}}
-      const { data: { data } } = await this.$axios.get('/articles', { params: this.reqParams })
+      const {
+        data: { data }
+      } = await this.$axios.get('/articles', { params: this.reqParams })
       this.articles = data.results
       console.log(data.results)
     }
@@ -116,7 +139,7 @@ export default {
 </script>
 
 <style  scoped lang='less'>
-    .box1 {
-      text-align: center;
-    }
+.box1 {
+  text-align: center;
+}
 </style>
