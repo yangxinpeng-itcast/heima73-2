@@ -29,9 +29,12 @@
             </el-select>
           </el-form-item>
           <el-form-item label="时间 :">
-            <!-- value1应该是数组，因为提交给后台的是两个时间数据 -->
+            <!-- dateValues应该是数组，因为提交给后台的是两个时间数据 -->
+            <!-- 点击筛选时提交给后台的日期格式错误，在这里需要修改一下 -->
             <el-date-picker
-              v-model="value1"
+              value-format="yyyy-MM-dd"
+              @change="changeDate"
+              v-model="dateValues"
               type="daterange"
               range-separator="至"
               start-placeholder="开始日期"
@@ -39,7 +42,7 @@
             ></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary">筛选</el-button>
+            <el-button type="primary" @click="search()">筛选</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -111,7 +114,7 @@ export default {
       },
       channelOptions: [],
       // 这里的数据应该从后台获取，以后获取后台时再根据reqParams里的属性修改
-      value1: [],
+      dateValues: [],
 
       // 列表数据
       articles: []
@@ -124,6 +127,17 @@ export default {
     this.getArticles()
   },
   methods: {
+    // valaus默认和dateValues绑定的数据一致
+    // 是change事件默认传入的
+    changeDate (values) {
+      // 给beigin和end赋值
+      this.reqParams.begin_pubdate = values[0]
+      this.reqParams.end_pubdate = values[1]
+    },
+    search () {
+      // 点击筛选按钮重新发送请求
+      this.getArticles()
+    },
     async getChannelOptions () {
       const {
         data: { data }
