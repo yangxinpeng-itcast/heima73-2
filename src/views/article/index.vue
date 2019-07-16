@@ -67,39 +67,40 @@
             </el-image>
           </template>
         </el-table-column>
-        <el-table-column label="标题" width="180">
-          <template slot-scope="scope">{{scope.row.title}}</template>
+        <el-table-column label="标题" width="180" prop="title">
+          <!--这里用prop获取标题也可以，因为标题只有文字不用其他操作-->
+          <!-- <template slot-scope="scope">{{scope.row.title}}</template> -->
         </el-table-column>
         <el-table-column label="状态">
           <template slot-scope="scope">
             <el-tag v-if="scope.row.status === 0" type="warning">草稿</el-tag>
             <el-tag v-if="scope.row.status === 1">待审核</el-tag>
             <el-tag v-if="scope.row.status === 2" type="success">审核通过</el-tag>
-            <el-tag v-if="scope.row.status === 3"  type="warning">审核失败</el-tag>
-            <el-tag v-if="scope.row.status === 4"  type="danger">已删除</el-tag>
+            <el-tag v-if="scope.row.status === 3" type="warning">审核失败</el-tag>
+            <el-tag v-if="scope.row.status === 4" type="danger">已删除</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="发布时间">
-          <template slot-scope="scope">{{scope.row.pubdate}}</template>
+        <el-table-column label="发布时间" prop="pubdate">
+          <!-- <template slot-scope="scope">{{scope.row.pubdate}}</template> -->
         </el-table-column>
         <el-table-column label="操作">
-          <el-row>
-            <el-button type="primary" icon="el-icon-edit" circle></el-button>
-            <el-button type="danger" icon="el-icon-delete" circle></el-button>
-          </el-row>
+
+            <template slot-scope="scope">
+              <el-button type="primary" icon="el-icon-edit" circle></el-button>
+              <el-button type="danger" icon="el-icon-delete" circle @click="open(scope.row.id)"></el-button>
+            </template>
+
         </el-table-column>
       </el-table>
       <div class="box1">
         <el-pagination
           background
           layout="prev, pager, next"
-
           @current-change="changePager"
           :current-page="reqParams.page"
           :page-size="reqParams.per_page"
           :total="total"
-          >
-        </el-pagination>
+        ></el-pagination>
       </div>
     </el-card>
   </div>
@@ -173,7 +174,29 @@ export default {
       } = await this.$axios.get('/articles', { params: this.reqParams })
       this.articles = data.results
       this.total = data.total_count
-      // console.log(data)
+      console.log(data)
+    },
+    open (id) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(async () => {
+          await this.$axios.delete('articles/' + id)
+          // 删除成功后重新获取页面
+          this.getArticles()
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     }
   }
 }
