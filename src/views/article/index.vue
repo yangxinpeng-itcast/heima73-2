@@ -86,8 +86,8 @@
         <el-table-column label="操作">
 
             <template slot-scope="scope">
-              <el-button type="primary" icon="el-icon-edit" circle></el-button>
-              <el-button type="danger" icon="el-icon-delete" circle @click="open(scope.row.id)"></el-button>
+              <el-button type="primary" icon="el-icon-edit" circle @click="edit(scope.row.id)"></el-button>
+              <el-button type="danger" icon="el-icon-delete" circle @click="del(scope.row.id)"></el-button>
             </template>
 
         </el-table-column>
@@ -176,7 +176,7 @@ export default {
       this.total = data.total_count
       console.log(data)
     },
-    open (id) {
+    del (id) {
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -197,6 +197,11 @@ export default {
             message: '已取消删除'
           })
         })
+    },
+    edit (id) {
+      // 点击编辑跳转到素材管理页
+      // 这里的query相当于'?id=' +id
+      this.$router.push({ path: '/publish', query: { id } })
     }
   }
 }
