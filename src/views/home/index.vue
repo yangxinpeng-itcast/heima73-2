@@ -48,7 +48,7 @@
         <span class="el-icon-s-fold" @click="ddd"></span>
         <span class="text">江苏传智播客教育科技有限公司</span>
         <div class="right">
-          <img :src="avatar" />
+          <img :src="avatar"/>
           <el-dropdown>
             <span class="el-dropdown-link" style="border:none">
               {{name}}

@@ -5,6 +5,11 @@
       <div slot="header" class="clearfix">
         <!-- 默认插槽 -->
         <my-bread>内容管理</my-bread>
+
+        <!-- 子传父 -->
+        <my-son @input="fn"></my-son>
+        {{text}}
+
       </div>
       <div>
         <el-form :model="reqParams" size="small" label-width="80px">
@@ -19,14 +24,10 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="频道 :">
-            <el-select v-model="reqParams.channel_id" placeholder="所有频道">
-              <el-option
-                v-for="item in channelOptions"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
+              <!-- 这里相当于父传子 只不过在父模板中使用的子模板绑定的是v-model而不是自定义属性-->
+              <!-- 在子模版中用props接收 -->
+              <my-channel v-model="reqParams.channel_id" @input="zcf"></my-channel>
+
           </el-form-item>
           <el-form-item label="时间 :">
             <!-- dateValues应该是数组，因为提交给后台的是两个时间数据 -->
@@ -115,6 +116,7 @@ export default {
   // components:{MyBread:MyBread},
   data () {
     return {
+      shuju: '父组件数据',
       // 提交给后台的筛选条件
       reqParams: {
         page: 1,
@@ -124,23 +126,34 @@ export default {
         begin_pubdate: null,
         end_pubdate: null
       },
-      channelOptions: [],
+
       // 这里的数据应该从后台获取，以后获取后台时再根据reqParams里的属性修改
       dateValues: [],
 
       // 列表数据
       articles: [],
       // 总条数
-      total: 0
+      total: 0,
+
+      text: ''
     }
   },
   created () {
     // 页面加载完毕后就执行钩子函数调用getChanelOptions函数
-    this.getChannelOptions()
+
     // 调用获取列表数据函数
     this.getArticles()
   },
   methods: {
+    zcf (data) {
+      console.log(data)
+      this.channel_id = data
+    },
+    fn (data) {
+      console.log('fn')
+      this.text = data
+    },
+
     changePager (newPage) {
       // newPage当前点击的按钮的当前页
       // 改变当前页,更新提交给后台的参数
@@ -158,12 +171,6 @@ export default {
     search () {
       // 点击筛选按钮重新发送请求
       this.getArticles()
-    },
-    async getChannelOptions () {
-      const {
-        data: { data }
-      } = await this.$axios.get('channels')
-      this.channelOptions = data.channels
     },
     // 获取文章列表数据
     async getArticles () {
