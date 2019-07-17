@@ -43,7 +43,6 @@
         :on-success="handleSuccess"
         :headers="headers"
         name="image"
-
       >
         <img v-if="imageUrl" :src="imageUrl" class="avatar" />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -72,7 +71,8 @@ export default {
       imageUrl: null,
       // 上传图片请求头
       headers: {
-        Authorization: 'Bearer ' + JSON.parse(window.sessionStorage.getItem('heima73')).token
+        Authorization:
+          'Bearer ' + JSON.parse(window.sessionStorage.getItem('heima73')).token
       }
     }
   },
@@ -97,8 +97,13 @@ export default {
       // 改变当前页数后重新发送请求
       this.getImages()
     },
-    toggleFav (item) {
-      item.is_collected = !item.is_collected
+    async toggleFav (item) {
+      const { data: { data } } = await this.$axios.put('/user/images/' + item.id, {
+        collect: !item.is_collected
+      })
+      // 修改成功后图标切换颜色
+      item.is_collected = data.is_collected
+      this.getImages()
     },
     // 调用getImages根据当前reqParams.collect已经改变的值重新获取数据
     // change事件的回调函数是当前选中项的:lable值,所以reqParams中的collect也会跟着改变
