@@ -20,7 +20,7 @@
         <img :src="item.url" />
         <div class="floot" v-if="!reqParams.collect">
           <span class="el-icon-star-off" :class="{red:item.is_collected}" @click="toggleFav(item)"></span>
-          <span class="el-icon-delete"></span>
+          <span class="el-icon-delete" @click="del(item)"></span>
         </div>
       </li>
     </ul>
@@ -82,6 +82,27 @@ export default {
     this.getImages()
   },
   methods: {
+    // 删除功能
+    del (item) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.delete('/user/images/' + item.id)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+
+      this.getImages()
+    },
     // 弹框
     // 上传成功后的处理函数
     handleSuccess (res) {
