@@ -5,6 +5,9 @@ import App from './App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+// 引入公共样式
+import './components/style/style.less'
+
 // 引入router对象
 import router from '@/router'
 
