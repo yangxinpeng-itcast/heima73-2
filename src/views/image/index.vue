@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card">
+  <el-card class="box-card" v-loading="loading">
     <div slot="header" class="clearfix">
       <my-bread>素材管理</my-bread>
     </div>
@@ -73,7 +73,9 @@ export default {
       headers: {
         Authorization:
           'Bearer ' + JSON.parse(window.sessionStorage.getItem('heima73')).token
-      }
+      },
+      // 页面加载等待
+      loading: false
     }
   },
   created () {
@@ -113,9 +115,11 @@ export default {
       this.getImages()
     },
     async getImages () {
+      this.loading = true
       const {
         data: { data }
       } = await this.$axios.get('user/images', { params: this.reqParams })
+      this.loading = false
       // console.log(data);
       this.images = data.results
       this.total = data.total_count
