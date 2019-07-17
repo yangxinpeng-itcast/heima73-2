@@ -19,8 +19,11 @@ import NotFound from '../views/NotFound'
 // 引入内容管理
 import article from '../views/article'
 
-// 引入素材管理页
+// 引入内容管理页
 import publish from '../views/publish'
+
+// 引入素材管理页
+import image from '../views/image'
 
 // 在全局注册组件
 // Vue.use(VueRouter)
@@ -34,7 +37,8 @@ const router = new VueRouter({
       children: [
         { path: '/', component: Main },
         { path: '/article', component: article },
-        { path: '/publish', component: publish }
+        { path: '/publish', component: publish },
+        { path: '/image', component: image }
       ] },
     { path: '*', name: '404', component: NotFound }
 
