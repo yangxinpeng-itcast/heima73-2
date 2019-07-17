@@ -78,6 +78,7 @@ export default {
       loading: false
     }
   },
+
   created () {
     this.getImages()
   },
