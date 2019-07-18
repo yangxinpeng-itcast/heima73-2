@@ -184,10 +184,11 @@ export default {
         span {
           padding: 0 20px;
           height: 15px;
-        }
-        .red {
+          &.red {
           color: red;
         }
+        }
+
       }
     }
   }

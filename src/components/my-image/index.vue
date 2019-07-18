@@ -1,0 +1,112 @@
+<template>
+  <div class="myimg">
+    <div class="img-btn" @click="openDialog()">
+      <img src="../../assets/images/default.png" alt />
+    </div>
+    <!-- 封面弹出框 -->
+    <el-dialog :visible.sync="dialogVisible">
+      <!-- 选项卡 -->
+      <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="xxk">
+        <el-tab-pane label="素材库" name="image">
+          <!-- 单选按钮 -->
+          <el-radio-group v-model="reqParams.collect">
+            <el-radio-button :label="false">全部</el-radio-button>
+            <el-radio-button :label="true">收藏</el-radio-button>
+          </el-radio-group>
+          <ul>
+            <li v-for="item in images" :key="item.id" class="img">
+              <img :src="item.url" />
+            </li>
+          </ul>
+          <!-- 分页器 -->
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="total"
+            style="margin:0"
+            @current-change="peger"
+          ></el-pagination>
+        </el-tab-pane>
+        <el-tab-pane label="上传图片" name="upload">
+          <el-upload
+            class="avatar-uploader"
+            action="http://ttapi.research.itcast.cn/mp/v1_0/user/images"
+            :show-file-list="false"
+            :on-success="handleSuccess"
+            name="image"
+            :headers="headers"
+          >
+            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-tab-pane>
+      </el-tabs>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'my-image',
+  data () {
+    return {
+      dialogVisible: false,
+      activeName: 'image',
+      imageUrl: '',
+      headers: {
+        Authorization:
+          'Bearer ' + JSON.parse(window.sessionStorage.getItem('heima73')).token
+      },
+      reqParams: {
+        collect: 'false',
+        page: 1,
+        per_page: 8
+      },
+      images: [],
+      total: 0
+    }
+  },
+  methods: {
+    peger (parge) {
+      this.reqParams.page = parge
+      this.getImage()
+    },
+    openDialog () {
+      this.dialogVisible = true
+      this.getImage()
+    },
+    async getImage () {
+      const {
+        data: { data }
+      } = await this.$axios.get('user/images', { params: this.reqParams })
+      console.log(data)
+      this.images = data.results
+      this.total = data.total_count
+    },
+    // 素材上传成功后的回调函数
+    handleSuccess (res) {
+      this.imageUrl = res.data.url
+    },
+    handleClick () {}
+  }
+}
+</script>
+
+<style  scoped lang='less'>
+.img-btn {
+  display: block;
+  border: 1px dashed #ccc;
+  width: 150px;
+  height: 150px;
+  margin-top: 5px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>

@@ -9,6 +9,9 @@ import MySon from './son'
 // 引入频道组件
 import MyChannel from './my-channel'
 
+// 引入发布文章的上传封面组件
+import MyImage from './my-image'
+
 // 1.注册所有组件在Vue对象下
 // 2.封装成插件的形式
 // 当Vue.use(插件)的时候，执行插件的配置对象中install函数，传入Vue对象
@@ -19,5 +22,6 @@ export default {
     Vue.component(MyBread.name, MyBread)
     Vue.component(MySon.name, MySon)
     Vue.component(MyChannel.name, MyChannel)
+    Vue.component(MyImage.name, MyImage)
   }
 }
