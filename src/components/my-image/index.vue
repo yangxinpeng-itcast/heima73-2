@@ -1,7 +1,7 @@
 <template>
   <div class="myimg">
     <div class="img-btn" @click="openDialog()">
-      <img :src="value" alt />
+      <img :src="value || defaultImg" alt />
     </div>
     <!-- 封面弹出框 -->
     <el-dialog :visible.sync="dialogVisible">
@@ -59,6 +59,7 @@
 <script>
 import defaultImg from '../../assets/images/default.png'
 export default {
+  props: ['value'],
   name: 'my-image',
   data () {
     return {
@@ -77,7 +78,9 @@ export default {
       images: [],
       total: 0,
       selectedUrl: null,
-      value: defaultImg
+      //   value: defaultImg
+      // 双向绑定之后就不用给value赋值了,父传子会传递过来value值,用props接的
+      defaultImg
     }
   },
   methods: {
@@ -112,6 +115,9 @@ export default {
     },
     openDialog () {
       this.dialogVisible = true
+      // 打开对话框 将上次上传图片清空
+      this.imageUrl = null
+      this.selectedUrl = null
       this.getImage()
     },
     async getImage () {

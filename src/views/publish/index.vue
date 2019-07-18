@@ -19,8 +19,7 @@
             <el-radio :label="-1">自动</el-radio>
           </el-radio-group>
 
-            <my-image></my-image>
-
+          <my-image v-model="articleForm.images"></my-image>
         </el-form-item>
         <el-form-item label="频道:">
           <my-channel v-model="articleForm.channel_id"></my-channel>
@@ -48,7 +47,11 @@ export default {
       articleForm: {
         title: '',
         cover: {
-          type: 1
+          type: 1,
+
+          // 发布文章封面 单图 三图 无图 自动 数据在这里
+          // images是发表文章必要参数
+          images: []
         },
         channel_id: null,
         content: null
@@ -72,5 +75,4 @@ export default {
 </script>
 
 <style scoped lang='less'>
-
 </style>
