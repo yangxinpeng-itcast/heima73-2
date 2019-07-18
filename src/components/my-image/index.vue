@@ -9,12 +9,18 @@
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="xxk">
         <el-tab-pane label="素材库" name="image">
           <!-- 单选按钮 -->
-          <el-radio-group v-model="reqParams.collect">
+          <el-radio-group v-model="reqParams.collect" @change="edit">
             <el-radio-button :label="false">全部</el-radio-button>
             <el-radio-button :label="true">收藏</el-radio-button>
           </el-radio-group>
           <ul>
-            <li v-for="item in images" :key="item.id" class="img">
+            <li
+              v-for="item in images"
+              :key="item.id"
+              class="img"
+              :class="{god:selectedUrl === item.url}"
+              @click="selected(item.url)"
+            >
               <img :src="item.url" />
             </li>
           </ul>
@@ -68,10 +74,17 @@ export default {
         per_page: 8
       },
       images: [],
-      total: 0
+      total: 0,
+      selectedUrl: null
     }
   },
   methods: {
+    selected (url) {
+      this.selectedUrl = url
+    },
+    edit () {
+      this.getImage()
+    },
     peger (parge) {
       this.reqParams.page = parge
       this.getImage()

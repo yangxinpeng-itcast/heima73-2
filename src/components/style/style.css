@@ -49,6 +49,16 @@
   margin: 5px 20px 5px 0;
   text-align: center;
   line-height: 120px;
+  position: relative;
+}
+.myimg .el-dialog .xxk ul .img.god::before {
+  content: "";
+  background: rgba(0, 0, 0, 0.5) url(../../assets/images/selected.png) no-repeat center / 80px 80px;
+  width: 140px;
+  height: 140px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .myimg .el-dialog .xxk ul .img img {
   width: 100%;
