@@ -1,7 +1,7 @@
 <template>
   <div class="myimg">
     <div class="img-btn" @click="openDialog()">
-      <img src="../../assets/images/default.png" alt />
+      <img :src="value" alt />
     </div>
     <!-- 封面弹出框 -->
     <el-dialog :visible.sync="dialogVisible">
@@ -50,13 +50,14 @@
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="confirmImage()">确 定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import defaultImg from '../../assets/images/default.png'
 export default {
   name: 'my-image',
   data () {
@@ -75,10 +76,30 @@ export default {
       },
       images: [],
       total: 0,
-      selectedUrl: null
+      selectedUrl: null,
+      value: defaultImg
     }
   },
   methods: {
+    confirmImage () {
+      this.dialogVisible = false
+      // 有两种情况
+      // 1.当前在素材库
+      if (this.activeName === 'image') {
+        if (!this.selectedUrl) {
+          this.$message.info('请选择图片')
+        } else {
+          this.value = this.selectedUrl
+        }
+      } else {
+        // 2.当前在上传图片界面
+        if (!this.imageUrl) {
+          this.$message.info('请上传图片')
+        } else {
+          this.value = this.imageUrl
+        }
+      }
+    },
     selected (url) {
       this.selectedUrl = url
     },
