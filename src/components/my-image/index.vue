@@ -85,23 +85,26 @@ export default {
   },
   methods: {
     confirmImage () {
-      this.dialogVisible = false
       // 有两种情况
       // 1.当前在素材库
       if (this.activeName === 'image') {
         if (!this.selectedUrl) {
           this.$message.info('请选择图片')
         } else {
-          this.value = this.selectedUrl
+        //   this.value = this.selectedUrl
+        // 双向绑定后不需要再给value赋值了,将数据传给父组件
+          this.$emit('input', this.selectedUrl)
         }
       } else {
         // 2.当前在上传图片界面
         if (!this.imageUrl) {
           this.$message.info('请上传图片')
         } else {
-          this.value = this.imageUrl
+        //   this.value = this.imageUrl
+          this.$emit('input', this.imageUrl)
         }
       }
+      this.dialogVisible = false
     },
     selected (url) {
       this.selectedUrl = url
@@ -148,5 +151,11 @@ export default {
     width: 100%;
     height: 100%;
   }
+}
+.myimg {
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    margin-right: 20px;
 }
 </style>
