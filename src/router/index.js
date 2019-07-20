@@ -25,6 +25,9 @@ import publish from '../views/publish'
 // 引入素材管理页
 import image from '../views/image'
 
+// 引入评论管理页
+import Comment from '../views/comment'
+
 // 在全局注册组件
 // Vue.use(VueRouter)
 Vue.use(VueRouter)
@@ -38,7 +41,8 @@ const router = new VueRouter({
         { path: '/', component: Main },
         { path: '/article', component: article },
         { path: '/publish', component: publish },
-        { path: '/image', component: image }
+        { path: '/image', component: image },
+        { path: '/comment', component: Comment }
       ] },
     { path: '*', name: '404', component: NotFound }
 
