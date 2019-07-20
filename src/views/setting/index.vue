@@ -26,8 +26,9 @@
         class="avatar-uploader"
         action="http://ttapi.research.itcast.cn/mp/v1_0/user/photo"
         :show-file-list="false"
+        :http-request="upload"
       >
-        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+        <img v-if="userForm.photo" :src="userForm.photo" class="avatar" />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
       <p>修改头像</p>
@@ -55,6 +56,18 @@ export default {
     this.getUser()
   },
   methods: {
+    upload (data) {
+      // console.log(data) data.file是后台要的图片数据
+      const formData = new FormData()
+      formData.append('photo', data.file)
+      this.$axios.patch('user/photo', formData).then(res => {
+        this.userForm.photo = res.data.data.photo
+        eventBus.$emit('updateHeaderPhoto', res.data.data.photo)
+        const localUser = JSON.parse(window.sessionStorage.getItem('heima73'))
+        localUser.photo = res.data.data.photo
+        window.sessionStorage.setItem('heima73', JSON.stringify(localUser))
+      })
+    },
     async updateUser () {
       const {
         data: { data }

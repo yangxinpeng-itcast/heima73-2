@@ -92,6 +92,9 @@ export default {
     eventBus.$on('updateHeaderName', (name) => {
       this.name = name
     })
+    eventBus.$on('updateHeaderPhoto', (photo) => {
+      this.avatar = photo
+    })
   },
   methods: {
     ddd () {
