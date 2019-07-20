@@ -31,6 +31,9 @@ import Comment from '../views/comment'
 // 引入个人设置页
 import Setting from '../views/setting'
 
+// 引入粉丝管理页
+import Fans from '../views/fans'
+
 // 在全局注册组件
 // Vue.use(VueRouter)
 Vue.use(VueRouter)
@@ -46,7 +49,8 @@ const router = new VueRouter({
         { path: '/publish', component: publish },
         { path: '/image', component: image },
         { path: '/comment', component: Comment },
-        { path: '/setting', component: Setting }
+        { path: '/setting', component: Setting },
+        { path: '/fans', component: Fans }
       ] },
     { path: '*', name: '404', component: NotFound }
 
